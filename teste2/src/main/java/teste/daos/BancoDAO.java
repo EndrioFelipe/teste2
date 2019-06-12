@@ -52,7 +52,6 @@ public class BancoDAO {
 			System.out.println("aqui");
 			return manager.createQuery("select b from Beneficiarios b where b.Ano_Proposta = "+escolha+" and b.Codigo_UOR_Cadastradora = "+elemento+" and b.Unidade_Executada = "+executada, Beneficiarios.class).getResultList();
 		} else {
-			listaColuna = listaColuna;
 			item = executada.equals("") ? listaColuna : "'"+item+"'";
 		}
 		

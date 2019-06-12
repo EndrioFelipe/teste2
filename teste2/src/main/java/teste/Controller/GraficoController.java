@@ -1,6 +1,7 @@
 package teste.Controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,11 @@ public class GraficoController {
 	
 	@RequestMapping("/teste")
     public @ResponseBody List<Object> gato(String name) {
-	  System.out.println(name);
-	    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-	    List<Object> item = bancoDAO.listar(name);
-	
+	    List<Object> item = bancoDAO.listar(name);	
+	    System.out.println("calendar: "+ item.get(1).getClass());
+	   
+	    
+	    
 	    return item;
 	}
 	
@@ -90,7 +92,7 @@ public class GraficoController {
 		lista.add("UO_Lotacao");
 		lista.add("Condicao_Servidor");
 		lista.add("Valor_PSS_Retido");
-
+		
 				
 	    ModelAndView modelAndView = new ModelAndView("/grafico/lista");
 	    modelAndView.addObject("anos", ano);

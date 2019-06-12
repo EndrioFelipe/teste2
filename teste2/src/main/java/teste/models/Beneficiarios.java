@@ -2,6 +2,7 @@ package teste.models;
 
 
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -10,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
 
 @Entity
 public class Beneficiarios {
@@ -39,7 +39,8 @@ public class Beneficiarios {
 	
 	private String Nome_Beneficiario;
 	
-	private String Data_Autuacao;
+	@DateTimeFormat
+	private Calendar Data_Autuacao;
 	
 	private double Valor_Pago;
 	
@@ -155,15 +156,15 @@ public class Beneficiarios {
 		Nome_Beneficiario = nome_Beneficiario;
 	}
 	
-	public String getData_Autuacao() {
+	
+	
+	public Calendar getData_Autuacao() {
 		return Data_Autuacao;
 	}
 
-	public void setData_Autuacao(String data_Autuacao) {
+	public void setData_Autuacao(Calendar data_Autuacao) {
 		Data_Autuacao = data_Autuacao;
 	}
-
-	
 
 	public Date getData_Pagamento() {
 		return Data_Pagamento;

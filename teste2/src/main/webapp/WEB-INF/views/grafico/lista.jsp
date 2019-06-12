@@ -13,6 +13,27 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 
+<style>
+	#div1{
+		max-height: 500px;
+		overflow: scroll;
+		padding: 30px;
+		background-color: rgba(232, 236, 239, 0.3);
+		-moz-box-shadow:    inset 0 0 10px #BFBFBF;
+		-webkit-box-shadow: inset 0 0 10px #BFBFBF;
+		box-shadow:         inset 0 0 10px #BFBFBF;
+		margin-bottom: 100px;
+		//overflow: auto; 
+	}
+	
+	th{
+		text-align: left;
+		padding: 0 10px;
+	}
+	
+	
+</style>
+
 </head>
 	<body class="container">
 		
@@ -72,72 +93,80 @@
 			<input class="ue" type="checkbox"  value="unidade_Executada">Unidade Executada<br>
 			
 			<button id="esconde" type="button" >Esconde</button>
+			<button id="mostra" type="button" >Mostrar Tudo</button>
 		</p>
-	
-		<table class="table">
-		<tr>		
+	<div id="div1" >
+		<table class="table-striped">
+		<div class="div1">
 		
-		
-	        <tr>
-	            <td class="ano_proposta" >Ano Proposta</td>
-	            <td class="data_pagamento" >Data do Pagamento</td>
-	            <td class="uor" >Codigo UOR</td>
-	            <td class="unidade_executada" >Unidade Executada</td>
-	            <td>Nome do Beneficiário</td>
-	            <td>Valor</td>
-	        </tr>
+			<thead >
+		        <tr>
+		            <th class="ano_proposta" >Ano Proposta</th>
+		            <th class="data_pagamento" >Data do Pagamento</th>
+		            <th class="uor" >Codigo UOR</th>
+		            <th class="unidade_executada" >Unidade Executada</th>
+		            <th>Nome do Beneficiário</th>
+		            <th>Valor</th>
+		        </tr>
+	        </thead>
 	        
-	        
-	
-	         <c:forEach items="${colunas}" var="coluna">
-				<tr>
-					<td class="ano_proposta" >${coluna.ano_Proposta}</td>
+		         <c:forEach items="${colunas}" var="coluna">
+					<tr>
+						<td class="ano_proposta" >${coluna.ano_Proposta}</td>
+						
+						<td class="data_pagamento" >
+							<fmt:formatDate pattern="dd/MM/yyyy" value="${coluna.data_Pagamento}" />
+						</td>
+						
+						<td class="uor" >${coluna.codigo_UOR_Cadastradora}</td>
+						
+						<td class="unidade_executada" >${coluna.unidade_Executada}</td>
+						
+						<td class="nome" >${coluna.nome_Beneficiario}</td>
 					
-					<td class="data_pagamento" >
-						<fmt:formatDate pattern="dd/MM/yyyy" value="${coluna.data_Pagamento}" />
-					</td>
-					
-					<td class="uor" >${coluna.codigo_UOR_Cadastradora}</td>
-					
-					<td class="unidade_executada" >${coluna.unidade_Executada}</td>
-					
-					<td class="nome" >${coluna.nome_Beneficiario}</td>
-				
-					<td class="pps" >${coluna.valor_PSS_Retido}</td>
-				</tr>
-			</c:forEach> 	
-	        
-	      
-	
+						<td class="pps" >${coluna.valor_PSS_Retido}</td>
+					</tr>
+				</c:forEach> 
+			</div>
 	    </table>
-	    
+	  </div>	  
 	    
 	  
 	    
 	    
 	    <script>
-	
-	    	let checa = document.querySelector("#check");
+			
+	    	let qs = document.querySelector.bind(document);
+	    
+	    	let checa = qs("#check");
 	    	
-	    	var esconde = document.querySelector("#esconde");
+	    	let esconde = qs("#esconde");
 	
 	    	esconde.addEventListener("click", function(event){
 	    		event.preventDefault();
 	    		var ap = null;
 	    		
-	    		if(document.querySelector('.ap:checked')){
+	    		if(qs('.ap:checked')){
 	    			$('.ano_proposta').hide();
 	    		} else {
 	    			`lksdbiudgbsaiufhas`;
 	    		}
 	    		
-	    		var dp = document.querySelector('.dp:checked') ? $('.data_pagamento').hide() : ``;
-	    		var cuor = document.querySelector('.cuor:checked') ? $('.uor').hide() : ``;
-	    		var ue = document.querySelector('.ue:checked') ? $('.unidade_executada').hide() : ``;
+	    		var dp = qs('.dp:checked') ? $('.data_pagamento').hide() : ``;
+	    		var cuor = qs('.cuor:checked') ? $('.uor').hide() : ``;
+	    		var ue = qs('.ue:checked') ? $('.unidade_executada').hide() : ``;
 				
-
-					    		
 	    		
+	    	});
+	    	
+	    	let mostra = qs('#mostra');
+
+	    	mostra.addEventListener("click", function(event){
+	    		event.preventDefault();
+    			$('.data_pagamento').show();
+    			$('.unidade_executada').show();
+    			$('.ano_proposta').show();
+    			$('.uor').show();
 	    	});
 	    
 	   		
@@ -167,15 +196,31 @@
 						att = document.createAttribute("value");
 						att.value = response[i];
 						e.setAttributeNode(att);
-						e.textContent = response[i];
+
+												
+						/* for(var i = 0 ; i >= 5){
+							
+						} */
+
+						let data = new Date(response[i]);
+						let data2 = new Date(response[i-1]);
+
+						console.log(data>data2);
+
+						console.log("data: "+data);
+						
+						
+						let dataFormatada = data.getDate()+"/"+(data.getMonth()+1)+"/"+data.getFullYear();
+
+
+
+						
+						e.textContent = dataFormatada;
+						
 						seleciona.appendChild(i == -1 ? opcao : e);
-			
+
 					}
 					
-					console.log("aqui");
-					
-			
-			
 					//response.map(item => seleciona.appendChild(e));
 				});
 			} 
