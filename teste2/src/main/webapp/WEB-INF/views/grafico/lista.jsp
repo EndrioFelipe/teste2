@@ -180,6 +180,7 @@
 	   
 		    function gato(a) {
 		   	var b = a.options[a.selectedIndex].text;
+		   		console.log('esse é o b:'+ b);
 				$.post("grafico/teste",	{	
 						name: b }   
 					      ,	function(response) {
